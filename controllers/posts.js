@@ -21,8 +21,7 @@ const store = async (req, res, next) => {
         const post = await prisma.post.create({ data });
         res.status(200).send(post);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
@@ -44,8 +43,7 @@ const index = async (req, res, next) => {
         });
         res.json(posts);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
@@ -74,8 +72,7 @@ const show = async (req, res, next) => {
             res.json(post);
         }
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
@@ -96,8 +93,7 @@ const update = async (req, res, next) => {
         const post = await prisma.post.update({ where: { slug }, data });
         res.json(post);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
@@ -107,8 +103,7 @@ const destroy = async (req, res, next) => {
         await prisma.post.delete({ where: { slug } });
         res.json(`Il post ${slug} è stato eliminato.`);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 

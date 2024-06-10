@@ -11,8 +11,7 @@ const store = async (req, res, next) => {
         const tag = await prisma.tag.create({ data });
         res.status(200).send(tag);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
@@ -21,8 +20,7 @@ const index = async (req, res, next) => {
         const tags = await prisma.tag.findMany();
         res.json(tags);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
@@ -34,8 +32,7 @@ const show = async (req, res, next) => {
         });
         res.json(tag);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
@@ -48,8 +45,7 @@ const update = async (req, res, next) => {
         });
         res.json(tag);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
@@ -62,8 +58,7 @@ const destroy = async (req, res, next) => {
         });
         res.json(`Il Tag con id ${id} è stato eliminato.`);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 

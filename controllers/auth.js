@@ -30,8 +30,7 @@ const register = async (req, res, next) => {
         res.json({ token, data: user });
 
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
@@ -64,8 +63,7 @@ const login = async (req, res, next) => {
         res.json({ token, data: user });
 
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 

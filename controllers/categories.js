@@ -11,8 +11,7 @@ const store = async (req, res, next) => {
         const category = await prisma.category.create({ data });
         res.status(200).send(category);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
@@ -21,8 +20,7 @@ const index = async (req, res, next) => {
         const categories = await prisma.category.findMany();
         res.json(categories);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
@@ -34,8 +32,7 @@ const show = async (req, res, next) => {
         });
         res.json(category);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
@@ -48,8 +45,7 @@ const update = async (req, res, next) => {
         });
         res.json(category);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
@@ -62,8 +58,7 @@ const destroy = async (req, res, next) => {
         });
         res.json(`La Category con id ${id} è stata eliminata.`);
     } catch (err) {
-        console.error(err)
-        res.status(500).json(err)
+        next(err);
     }
 }
 
