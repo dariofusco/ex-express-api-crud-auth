@@ -31,6 +31,7 @@ const index = async (req, res, next) => {
             include: {
                 category: {
                     select: {
+                        id: true,
                         name: true,
                     }
                 },

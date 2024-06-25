@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
+const multer = require('multer')
+const uploader = multer({ dest: "public" });
+
 const {
     store,
     index, show,
@@ -12,15 +15,18 @@ const validator = require('../middlewares/validator.js');
 const { bodyData } = require('../validations/posts.js');
 const authenticateWithToken = require('../middlewares/auth.js');
 
-router.use(authenticateWithToken);
-
-router.post('/', validator(bodyData), store);
+//Rotte Pubbliche
 
 router.get('/', index);
 
 router.get('/:slug', show);
 
-router.put('/:slug', validator(bodyData), update);
+//Rotte Private
+router.use(authenticateWithToken);
+
+router.post('/', uploader.single("image"), validator(bodyData), store);
+
+router.put('/:slug', update);
 
 router.delete('/:slug', destroy);
 

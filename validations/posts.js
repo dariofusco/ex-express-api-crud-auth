@@ -11,7 +11,8 @@ const bodyData = {
         isString: {
             errorMessage: 'Il Titolo deve essere una stringa',
             bail: true
-        }
+        },
+        trim: true,
     },
     slug: {
         in: ["body"],
@@ -22,12 +23,14 @@ const bodyData = {
     },
     published: {
         in: ["body"],
+        toBoolean: true,
         isBoolean: {
             errorMessage: 'Published deve essere un booleano.'
-        }
+        },
     },
     categoryId: {
         in: ["body"],
+        toInt: true,
         isInt: {
             errorMessage: "Category Id deve essere numero intero",
             bail: true
@@ -43,7 +46,7 @@ const bodyData = {
                 }
                 return true;
             }
-        }
+        },
     },
     tags: {
         in: ["body"],
@@ -55,6 +58,7 @@ const bodyData = {
             errorMessage: "Tags deve essere un array",
             bail: true
         },
+        customSanitizer: { options: value => value.map(tag => parseInt(tag)) },
         custom: {
             options: async (ids) => {
                 const tags = await prisma.tag.findMany({
